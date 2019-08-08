@@ -6,6 +6,10 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.static('public'));
+
+// app.use(express.json());    //express's own body parser
+app.use(express.urlencoded({extended: true}));
+
 app.use('/images', express.static('images'));
 
 app.get('/', (req, res) =>
@@ -14,11 +18,19 @@ app.get('/', (req, res) =>
     res.json(data);
 });
 
+
+app.post('/newItem', (req, res, next) => {
+    console.log(req.body);
+    res.send(req.body);
+});
+
 app.get('/item/:id', (req, res, next) =>
     {
         //id by default is a String
         console.log(req.params.id);
         let user = Number(req.params.id);
+        console.log(`Request from: ${req.originalUrl}`);
+        console.log(`Request type: ${req.method}`);
         res.send(data[user]);
         next();
     },
