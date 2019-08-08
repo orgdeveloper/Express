@@ -93,5 +93,5 @@ app.use((err, req, res, next) =>
 app.listen(PORT, () =>
 {
     console.log(`Successful started a back end server on port ${PORT}`);
-    console.log(data);
+    // console.log(data);
 });
