@@ -64,6 +64,7 @@ app.post('/newItem', (req, res) =>
 app.route('/item')
     .get((req, res, next) =>
     {
+        throw new Error('some shit when wrong');
         res.send(`a get request with /item route on port ${PORT}`);
         next();
     })
@@ -77,6 +78,12 @@ app.route('/item')
         res.send(`a delete request with /item route on port ${PORT}`);
         next();
     });
+
+//executes if error is thrown implied by err parameter
+app.use((err, req, res, next)=>{
+    console.error(err.stack);
+    res.status(500).send('OOHHH u fucked! ' + err.stack);
+})
 
 app.listen(PORT, () =>
 {
