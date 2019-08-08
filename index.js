@@ -12,6 +12,8 @@ app.use(express.static('public'));
 // app.use(express.json());    //express's own body parser
 app.use(express.urlencoded({extended: true}));
 
+app.set('trust proxy', 'loopback');
+
 app.use('/images', express.static('images'));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
