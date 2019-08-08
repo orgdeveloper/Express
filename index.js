@@ -1,5 +1,7 @@
 import express from 'express';
 import data    from './data/data';
+import favicon from 'serve-favicon';
+import path    from 'path';
 
 
 const app = express();
@@ -11,6 +13,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
 app.use('/images', express.static('images'));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.get('/', (req, res) =>
 {
@@ -19,7 +22,8 @@ app.get('/', (req, res) =>
 });
 
 
-app.post('/newItem', (req, res, next) => {
+app.post('/newItem', (req, res, next) =>
+{
     console.log(req.body);
     res.send(req.body);
 });
@@ -80,7 +84,8 @@ app.route('/item')
     });
 
 //executes if error is thrown implied by err parameter
-app.use((err, req, res, next)=>{
+app.use((err, req, res, next) =>
+{
     console.error(err.stack);
     res.status(500).send('OOHHH u fucked! ' + err.stack);
 })
